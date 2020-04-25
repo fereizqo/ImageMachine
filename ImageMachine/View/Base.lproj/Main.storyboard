@@ -201,6 +201,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneBarButton" destination="Wbx-nw-6Lj" id="y0a-bJ-eMj"/>
                         <outlet property="editTableView" destination="sfi-aj-hQG" id="xQf-AY-hR8"/>
                     </connections>
                 </viewController>

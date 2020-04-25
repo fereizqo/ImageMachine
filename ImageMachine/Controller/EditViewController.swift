@@ -12,6 +12,7 @@ import CoreData
 class EditViewController: UIViewController {
 
     @IBOutlet weak var editTableView: UITableView!
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
     
     let header = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
     var content = ["","","","",""]
@@ -19,15 +20,23 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Appearance
+        doneBarButton.isEnabled = false
+        
+        // Tableview
         editTableView.delegate = self
         editTableView.dataSource = self
         editTableView.tableFooterView = UIView()
+        
+        // Dismiss keyboard
+        self.hideKeyboardWhenTappedAround()
         
     }
     
     
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
-        
+        save(content: content)
+        print("save succes")
     }
     
     @IBAction func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
@@ -42,16 +51,18 @@ class EditViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func save(name: String) {
+    func save(content: [String]) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        
         let entity = NSEntityDescription.entity(forEntityName: "Machine", in: managedContext)!
-        
         let machine = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        machine.setValue(name, forKeyPath: "name")
+        machine.setValue(content[1], forKeyPath: "id")
+        machine.setValue(content[2], forKeyPath: "name")
+        machine.setValue(content[3], forKeyPath: "type")
+        machine.setValue(Int(content[4]), forKeyPath: "qrCode")
+        machine.setValue(content[5], forKeyPath: "dateMaintenance")
         
         do {
             try managedContext.save()
@@ -86,9 +97,42 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         return cell
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // Change keyboard type
+        if textField.tag == 3 {
+            textField.keyboardType = .numberPad
+            textField.reloadInputViews()
+        } else if textField.tag == 4 {
+            textField.setDatePicker(target: self, selector: #selector(tapDone))
+        }
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         content[textField.tag] = textField.text ?? ""
         print("Content: \(content)")
+        
+        // Checking the textfield has been filled
+        for i in content {
+            if i != "" {
+                doneBarButton.isEnabled = true
+            } else if i == "" {
+                doneBarButton.isEnabled = false
+            }
+        }
+    }
+    
+    @objc func tapDone() {
+//        let cell = editTableView.dequeueReusableCell(withIdentifier: "editCell") as! EditTableViewCell
+//        let textField = cell.viewWithTag(1) as! UITextField
+//        textField.delegate = self
+//        if let datePicker = textField.inputView as? UIDatePicker {
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateStyle = .medium
+//            textField.text = dateFormatter.string(from: datePicker.date)
+//            print("done : \(dateFormatter.string(from: datePicker.date))")
+//        }
+//        textField.resignFirstResponder()
     }
     
     
