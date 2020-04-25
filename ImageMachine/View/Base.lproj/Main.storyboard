@@ -10,18 +10,38 @@
         <!--Code Reader-->
         <scene sceneID="5b6-dm-yDX">
             <objects>
-                <viewController id="XdA-Kk-fKd" sceneMemberID="viewController">
+                <viewController id="XdA-Kk-fKd" customClass="CodeReaderViewController" customModule="ImageMachine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DXs-lb-FgN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wz8-jB-AY0">
+                                <rect key="frame" x="0.0" y="757" width="414" height="56"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="nUo-NG-Gah"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="wz8-jB-AY0" firstAttribute="bottom" secondItem="iKn-Da-K28" secondAttribute="bottom" id="HJd-bP-UOY"/>
+                            <constraint firstItem="wz8-jB-AY0" firstAttribute="trailing" secondItem="iKn-Da-K28" secondAttribute="trailing" id="IOC-vA-c2m"/>
+                            <constraint firstItem="wz8-jB-AY0" firstAttribute="leading" secondItem="iKn-Da-K28" secondAttribute="leading" id="Q9O-a9-UUc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="iKn-Da-K28"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Code Reader" id="bMD-eV-4iS"/>
+                    <connections>
+                        <outlet property="messageLabel" destination="wz8-jB-AY0" id="hmO-io-1qf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mnu-5I-BSG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1527" y="-36"/>
+            <point key="canvasLocation" x="1526.0869565217392" y="-36.160714285714285"/>
         </scene>
         <!--Machine Data-->
         <scene sceneID="RtY-rl-RLc">

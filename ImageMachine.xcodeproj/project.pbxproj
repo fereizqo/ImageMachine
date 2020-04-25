@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49D9349B2454746800414614 /* CodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9349A2454746800414614 /* CodeReaderViewController.swift */; };
 		49F8FA542452982C0034D717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F8FA532452982C0034D717 /* AppDelegate.swift */; };
 		49F8FA562452982C0034D717 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F8FA552452982C0034D717 /* SceneDelegate.swift */; };
 		49F8FA5B2452982C0034D717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49F8FA592452982C0034D717 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49D9349A2454746800414614 /* CodeReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeReaderViewController.swift; path = ImageMachine/View/CodeReaderViewController.swift; sourceTree = SOURCE_ROOT; };
 		49F8FA502452982C0034D717 /* ImageMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F8FA532452982C0034D717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F8FA552452982C0034D717 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				49F8FA532452982C0034D717 /* AppDelegate.swift */,
 				49F8FA552452982C0034D717 /* SceneDelegate.swift */,
+				49D9349A2454746800414614 /* CodeReaderViewController.swift */,
 				49F8FA892452A6A10034D717 /* MachineDataTableViewController.swift */,
 				49F8FA8B2452A7BE0034D717 /* MachineDataTableViewCell.swift */,
 				49F8FA8D2452CD2D0034D717 /* DetailMachineDataViewController.swift */,
@@ -311,6 +314,7 @@
 				49F8FA8C2452A7BE0034D717 /* MachineDataTableViewCell.swift in Sources */,
 				49F8FA8E2452CD2D0034D717 /* DetailMachineDataViewController.swift in Sources */,
 				49F8FA942452EDBC0034D717 /* EditTableViewCell.swift in Sources */,
+				49D9349B2454746800414614 /* CodeReaderViewController.swift in Sources */,
 				49F8FA96245347030034D717 /* Helper.swift in Sources */,
 				49F8FA8A2452A6A10034D717 /* MachineDataTableViewController.swift in Sources */,
 				49F8FA562452982C0034D717 /* SceneDelegate.swift in Sources */,
