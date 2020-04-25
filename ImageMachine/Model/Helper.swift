@@ -43,8 +43,4 @@ extension UITextField {
         self.resignFirstResponder()
         print("cancel")
     }
-    
-    @objc func tapDone() {
-        print("done")
-    }
 }

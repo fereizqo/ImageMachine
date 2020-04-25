@@ -62,7 +62,7 @@ class EditViewController: UIViewController {
         machine.setValue(content[2], forKeyPath: "name")
         machine.setValue(content[3], forKeyPath: "type")
         machine.setValue(Int(content[4]), forKeyPath: "qrCode")
-        machine.setValue(content[5], forKeyPath: "dateMaintenance")
+//        machine.setValue(content[5], forKeyPath: "dateMaintenance")
         
         do {
             try managedContext.save()
@@ -103,7 +103,7 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
             textField.keyboardType = .numberPad
             textField.reloadInputViews()
         } else if textField.tag == 4 {
-            textField.setDatePicker(target: self, selector: #selector(tapDone))
+            textField.setDatePicker(target: self, selector: #selector(tapDone(textField:)))
         }
         return true
     }
@@ -122,17 +122,18 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         }
     }
     
-    @objc func tapDone() {
-//        let cell = editTableView.dequeueReusableCell(withIdentifier: "editCell") as! EditTableViewCell
-//        let textField = cell.viewWithTag(1) as! UITextField
-//        textField.delegate = self
-//        if let datePicker = textField.inputView as? UIDatePicker {
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateStyle = .medium
-//            textField.text = dateFormatter.string(from: datePicker.date)
-//            print("done : \(dateFormatter.string(from: datePicker.date))")
-//        }
-//        textField.resignFirstResponder()
+    @objc func tapDone(textField: UITextField) {
+        if let datePicker = textField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            textField.text = dateFormatter.string(from: datePicker.date)
+            print("done : \(dateFormatter.string(from: datePicker.date))")
+        }
+        textField.resignFirstResponder()
+    }
+    
+    @objc func tapDonee() {
+        print("dones")
     }
     
     
