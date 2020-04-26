@@ -23,7 +23,7 @@ class EditViewController: UIViewController {
         // Appearance
         doneBarButton.isEnabled = false
         
-        // Tableview
+        // Tableview delegate
         editTableView.delegate = self
         editTableView.dataSource = self
         editTableView.tableFooterView = UIView()
@@ -36,7 +36,9 @@ class EditViewController: UIViewController {
     
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
         save(content: content)
-        print("save succes")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
@@ -58,11 +60,16 @@ class EditViewController: UIViewController {
         let entity = NSEntityDescription.entity(forEntityName: "Machine", in: managedContext)!
         let machine = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        machine.setValue(content[1], forKeyPath: "id")
-        machine.setValue(content[2], forKeyPath: "name")
-        machine.setValue(content[3], forKeyPath: "type")
-        machine.setValue(Int(content[4]), forKeyPath: "qrCode")
-        machine.setValue(content[5], forKeyPath: "dateMaintenance")
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, yyyy"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let date = formatter.date(from: content[4])
+        
+        machine.setValue(content[0], forKeyPath: "id")
+        machine.setValue(content[1], forKeyPath: "name")
+        machine.setValue(content[2], forKeyPath: "type")
+        machine.setValue(Int(content[3]), forKeyPath: "qrCode")
+        machine.setValue(date, forKeyPath: "dateMaintenance")
         
         do {
             try managedContext.save()
@@ -94,6 +101,14 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         textField.text = content[indexPath.row]
         textField.delegate = self
         
+        // Insert unique ID
+        if textField.tag == 0 {
+            let uuid = UUID().uuidString
+            textField.text = uuid
+            textField.isEnabled = false
+            content[0] = uuid
+        }
+        
         return cell
     }
     
@@ -106,6 +121,7 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
             createToolbar(sender: textField)
             createPickerView(sender: textField)
         }
+        
         return true
     }
     
@@ -151,13 +167,11 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         dateFormatter.timeStyle = DateFormatter.Style.none
 
         let indexRow = caller.tag
-        print("indexRow: \(indexRow)")
-        print("caller: \(caller.tag)")
-
         let indexPath = IndexPath(row: indexRow, section: 0)
         let cell = editTableView.cellForRow(at: indexPath) as! EditTableViewCell
-
+        
         cell.fillTextField.text = dateFormatter.string(from: caller.date)
+        print("date: \(dateFormatter.string(from: caller.date))")
     }
     
     @objc func dismissKeyboard(on: UIButton){

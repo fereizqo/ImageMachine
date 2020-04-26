@@ -9,6 +9,7 @@
 import UIKit
 import BSImagePicker
 import Photos
+import CoreData
 
 class DetailMachineDataViewController: UIViewController {
 
@@ -20,6 +21,7 @@ class DetailMachineDataViewController: UIViewController {
     
     let content = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
     let dummy = [ "123", "Test", "Type A", "4123","22/12/2020" ]
+    var machine: NSManagedObject?
     var imagePHAsset = [PHAsset]()
     var photoArray = [UIImage]()
     

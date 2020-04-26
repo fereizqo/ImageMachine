@@ -11,6 +11,7 @@
 		49D9349B2454746800414614 /* CodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9349A2454746800414614 /* CodeReaderViewController.swift */; };
 		49D9349F245583AD00414614 /* DetailMachineDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */; };
 		49D934A12455847400414614 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D934A02455847400414614 /* ImageViewController.swift */; };
+		49D934A32455A49400414614 /* Machines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D934A22455A49400414614 /* Machines.swift */; };
 		49F8FA542452982C0034D717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F8FA532452982C0034D717 /* AppDelegate.swift */; };
 		49F8FA562452982C0034D717 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F8FA552452982C0034D717 /* SceneDelegate.swift */; };
 		49F8FA5B2452982C0034D717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49F8FA592452982C0034D717 /* Main.storyboard */; };
@@ -49,8 +50,9 @@
 
 /* Begin PBXFileReference section */
 		49D9349A2454746800414614 /* CodeReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeReaderViewController.swift; path = ImageMachine/View/CodeReaderViewController.swift; sourceTree = SOURCE_ROOT; };
-		49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailMachineDataCollectionViewCell.swift; path = ImageMachine/DetailMachineDataCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailMachineDataCollectionViewCell.swift; path = ImageMachine/Model/DetailMachineDataCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		49D934A02455847400414614 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		49D934A22455A49400414614 /* Machines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Machines.swift; path = ImageMachine/Controller/Machines.swift; sourceTree = SOURCE_ROOT; };
 		49F8FA502452982C0034D717 /* ImageMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F8FA532452982C0034D717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F8FA552452982C0034D717 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,9 +68,9 @@
 		49F8FA782452982D0034D717 /* ImageMachineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMachineUITests.swift; sourceTree = "<group>"; };
 		49F8FA7A2452982D0034D717 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49F8FA892452A6A10034D717 /* MachineDataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MachineDataTableViewController.swift; path = ImageMachine/Controller/MachineDataTableViewController.swift; sourceTree = SOURCE_ROOT; };
-		49F8FA8B2452A7BE0034D717 /* MachineDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MachineDataTableViewCell.swift; path = ImageMachine/Controller/MachineDataTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		49F8FA8B2452A7BE0034D717 /* MachineDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MachineDataTableViewCell.swift; path = ImageMachine/Model/MachineDataTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		49F8FA8D2452CD2D0034D717 /* DetailMachineDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMachineDataViewController.swift; sourceTree = "<group>"; };
-		49F8FA8F2452D0710034D717 /* DetailMachineDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailMachineDataTableViewCell.swift; path = ImageMachine/Controller/DetailMachineDataTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		49F8FA8F2452D0710034D717 /* DetailMachineDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailMachineDataTableViewCell.swift; path = ImageMachine/Model/DetailMachineDataTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		49F8FA912452D3040034D717 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		49F8FA932452EDBC0034D717 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		49F8FA95245347030034D717 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -180,13 +182,9 @@
 				49F8FA552452982C0034D717 /* SceneDelegate.swift */,
 				49D9349A2454746800414614 /* CodeReaderViewController.swift */,
 				49F8FA892452A6A10034D717 /* MachineDataTableViewController.swift */,
-				49F8FA8B2452A7BE0034D717 /* MachineDataTableViewCell.swift */,
 				49F8FA8D2452CD2D0034D717 /* DetailMachineDataViewController.swift */,
-				49F8FA8F2452D0710034D717 /* DetailMachineDataTableViewCell.swift */,
-				49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */,
 				49D934A02455847400414614 /* ImageViewController.swift */,
 				49F8FA912452D3040034D717 /* EditViewController.swift */,
-				49F8FA932452EDBC0034D717 /* EditTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -203,8 +201,13 @@
 		49F8FA882452983B0034D717 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				49F8FA5C2452982C0034D717 /* ImageMachine.xcdatamodeld */,
+				49D934A22455A49400414614 /* Machines.swift */,
 				49F8FA95245347030034D717 /* Helper.swift */,
+				49F8FA8B2452A7BE0034D717 /* MachineDataTableViewCell.swift */,
+				49F8FA8F2452D0710034D717 /* DetailMachineDataTableViewCell.swift */,
+				49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */,
+				49F8FA932452EDBC0034D717 /* EditTableViewCell.swift */,
+				49F8FA5C2452982C0034D717 /* ImageMachine.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				49D934A12455847400414614 /* ImageViewController.swift in Sources */,
 				49F8FA8E2452CD2D0034D717 /* DetailMachineDataViewController.swift in Sources */,
 				49F8FA942452EDBC0034D717 /* EditTableViewCell.swift in Sources */,
+				49D934A32455A49400414614 /* Machines.swift in Sources */,
 				49D9349B2454746800414614 /* CodeReaderViewController.swift in Sources */,
 				49F8FA96245347030034D717 /* Helper.swift in Sources */,
 				49F8FA8A2452A6A10034D717 /* MachineDataTableViewController.swift in Sources */,
