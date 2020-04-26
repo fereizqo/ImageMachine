@@ -1,0 +1,24 @@
+PODS:
+  - BSImagePicker (3.1.4)
+  - Nimble (8.0.7)
+  - Quick (2.2.0)
+
+DEPENDENCIES:
+  - BSImagePicker
+  - Nimble
+  - Quick
+
+SPEC REPOS:
+  trunk:
+    - BSImagePicker
+    - Nimble
+    - Quick
+
+SPEC CHECKSUMS:
+  BSImagePicker: ec10342450eef9eb7d8bd040ab081bd1c3db6791
+  Nimble: a73af6ecd4c9106f434f3d55fc54570be3739e0b
+  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
+
+PODFILE CHECKSUM: fc78159c001104bacfad40b9503c353fb1dfc003
+
+COCOAPODS: 1.8.3
