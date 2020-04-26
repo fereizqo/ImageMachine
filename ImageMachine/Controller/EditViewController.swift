@@ -62,7 +62,7 @@ class EditViewController: UIViewController {
         machine.setValue(content[2], forKeyPath: "name")
         machine.setValue(content[3], forKeyPath: "type")
         machine.setValue(Int(content[4]), forKeyPath: "qrCode")
-//        machine.setValue(content[5], forKeyPath: "dateMaintenance")
+        machine.setValue(content[5], forKeyPath: "dateMaintenance")
         
         do {
             try managedContext.save()
@@ -103,7 +103,8 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
             textField.keyboardType = .numberPad
             textField.reloadInputViews()
         } else if textField.tag == 4 {
-            textField.setDatePicker(target: self, selector: #selector(tapDone(textField:)))
+            createToolbar(sender: textField)
+            createPickerView(sender: textField)
         }
         return true
     }
@@ -122,19 +123,45 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         }
     }
     
-    @objc func tapDone(textField: UITextField) {
-        if let datePicker = textField.inputView as? UIDatePicker {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            textField.text = dateFormatter.string(from: datePicker.date)
-            print("done : \(dateFormatter.string(from: datePicker.date))")
-        }
-        textField.resignFirstResponder()
+    func createPickerView(sender: UITextField){
+        let datePickerView : UIDatePicker = UIDatePicker()
+
+        datePickerView.datePickerMode = UIDatePicker.Mode.date
+        sender.inputView = datePickerView
+        datePickerView.tag = sender.tag
+        datePickerView.addTarget(self, action: #selector(datePickerValueChanged(caller:)), for: UIControl.Event.valueChanged)
     }
     
-    @objc func tapDonee() {
-        print("dones")
+    func createToolbar(sender: UITextField){
+        let datePickerToolbar = UIToolbar()
+        datePickerToolbar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(EditViewController.dismissKeyboard(on:)))
+        doneButton.tag = sender.tag
+
+        datePickerToolbar.setItems([doneButton], animated: false)
+        datePickerToolbar.isUserInteractionEnabled = true
+
+        sender.inputAccessoryView = datePickerToolbar
     }
     
+    @objc func datePickerValueChanged(caller: UIDatePicker){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
+
+        let indexRow = caller.tag
+        print("indexRow: \(indexRow)")
+        print("caller: \(caller.tag)")
+
+        let indexPath = IndexPath(row: indexRow, section: 0)
+        let cell = editTableView.cellForRow(at: indexPath) as! EditTableViewCell
+
+        cell.fillTextField.text = dateFormatter.string(from: caller.date)
+    }
+    
+    @objc func dismissKeyboard(on: UIButton){
+        view.endEditing(true)
+    }
     
 }

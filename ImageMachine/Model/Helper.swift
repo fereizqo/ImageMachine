@@ -34,7 +34,7 @@ extension UITextField {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(tapCancel))
-        let barButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: selector)
+        let barButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: selector)
         toolbar.setItems([cancel,flexible,barButton], animated: false)
         self.inputAccessoryView = toolbar
     }
