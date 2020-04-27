@@ -35,7 +35,7 @@ class EditViewController: UIViewController {
     
     
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
-        save(content: content)
+        coreDataRequest.shared.create(content: content)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
@@ -51,31 +51,6 @@ class EditViewController: UIViewController {
             alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    func save(content: [String]) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Machine", in: managedContext)!
-        let machine = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy"
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        let date = formatter.date(from: content[4])
-        
-        machine.setValue(content[0], forKeyPath: "id")
-        machine.setValue(content[1], forKeyPath: "name")
-        machine.setValue(content[2], forKeyPath: "type")
-        machine.setValue(Int(content[3]), forKeyPath: "qrCode")
-        machine.setValue(date, forKeyPath: "dateMaintenance")
-        
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
     }
     
 }

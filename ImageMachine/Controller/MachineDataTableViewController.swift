@@ -12,6 +12,7 @@ import CoreData
 class MachineDataTableViewController: UITableViewController {
     
     var machines: [NSManagedObject] = []
+    var machinesArray: [Machines] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class MachineDataTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadData()
+        machinesArray = coreDataRequest.shared.retrieve()
     }
 
     // Table view data source
@@ -32,22 +33,22 @@ class MachineDataTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return machines.count
+        return machinesArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let machine = machines[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "machineDataCell", for: indexPath) as! MachineDataTableViewCell
         
-        cell.titleLabel.text = machine.value(forKeyPath: "name") as? String
-        cell.subtitleLabel.text = machine.value(forKeyPath: "id") as? String
+        cell.titleLabel.text = machinesArray[indexPath.row].name
+        cell.subtitleLabel.text = machinesArray[indexPath.row].id
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailMachineData") as! DetailMachineDataViewController
-        nc.machine = machines[indexPath.row]
+        nc.machine = machinesArray[indexPath.row]
+        print("machine: \(machinesArray[indexPath.row])")
     }
     
     @IBAction func addBarButtonTapped(_ sender: UIBarButtonItem) {
@@ -55,25 +56,5 @@ class MachineDataTableViewController: UITableViewController {
         nc.modalPresentationStyle = .fullScreen
         nc.modalTransitionStyle = .crossDissolve
         self.present(nc, animated: true, completion: nil)
-    }
-    
-    func loadData() {
-        guard let appDelegate =
-          UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext =
-          appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest =
-          NSFetchRequest<NSManagedObject>(entityName: "Machine")
-        
-        //3
-        do {
-          machines = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
     }
 }

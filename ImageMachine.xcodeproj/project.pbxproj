@@ -12,6 +12,7 @@
 		49D9349F245583AD00414614 /* DetailMachineDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */; };
 		49D934A12455847400414614 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D934A02455847400414614 /* ImageViewController.swift */; };
 		49D934A32455A49400414614 /* Machines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D934A22455A49400414614 /* Machines.swift */; };
+		49D934A5245673DE00414614 /* coreDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D934A4245673DE00414614 /* coreDataRequest.swift */; };
 		49F8FA542452982C0034D717 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F8FA532452982C0034D717 /* AppDelegate.swift */; };
 		49F8FA562452982C0034D717 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F8FA552452982C0034D717 /* SceneDelegate.swift */; };
 		49F8FA5B2452982C0034D717 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49F8FA592452982C0034D717 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailMachineDataCollectionViewCell.swift; path = ImageMachine/Model/DetailMachineDataCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		49D934A02455847400414614 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		49D934A22455A49400414614 /* Machines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Machines.swift; path = ImageMachine/Controller/Machines.swift; sourceTree = SOURCE_ROOT; };
+		49D934A4245673DE00414614 /* coreDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreDataRequest.swift; sourceTree = "<group>"; };
 		49F8FA502452982C0034D717 /* ImageMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F8FA532452982C0034D717 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F8FA552452982C0034D717 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				49D934A22455A49400414614 /* Machines.swift */,
 				49F8FA95245347030034D717 /* Helper.swift */,
+				49D934A4245673DE00414614 /* coreDataRequest.swift */,
 				49F8FA8B2452A7BE0034D717 /* MachineDataTableViewCell.swift */,
 				49F8FA8F2452D0710034D717 /* DetailMachineDataTableViewCell.swift */,
 				49D9349E245583AD00414614 /* DetailMachineDataCollectionViewCell.swift */,
@@ -490,6 +493,7 @@
 				49D9349F245583AD00414614 /* DetailMachineDataCollectionViewCell.swift in Sources */,
 				49D934A12455847400414614 /* ImageViewController.swift in Sources */,
 				49F8FA8E2452CD2D0034D717 /* DetailMachineDataViewController.swift in Sources */,
+				49D934A5245673DE00414614 /* coreDataRequest.swift in Sources */,
 				49F8FA942452EDBC0034D717 /* EditTableViewCell.swift in Sources */,
 				49D934A32455A49400414614 /* Machines.swift in Sources */,
 				49D9349B2454746800414614 /* CodeReaderViewController.swift in Sources */,

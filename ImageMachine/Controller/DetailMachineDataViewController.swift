@@ -21,7 +21,7 @@ class DetailMachineDataViewController: UIViewController {
     
     let content = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
     let dummy = [ "123", "Test", "Type A", "4123","22/12/2020" ]
-    var machine: NSManagedObject?
+    var machine: Machines?
     var imagePHAsset = [PHAsset]()
     var photoArray = [UIImage]()
     
@@ -109,7 +109,8 @@ extension DetailMachineDataViewController: UITableViewDataSource, UITableViewDel
         let cell = detailTableView.dequeueReusableCell(withIdentifier: "detailMachineCell", for: indexPath) as! DetailMachineDataTableViewCell
         
         cell.titleLabel.text = content[indexPath.row]
-        cell.detailLabel.text = dummy[indexPath.row]
+        cell.detailLabel.text = dummy[indexPath.row]        
+//        cell.textLabel?.text = person.value(forKeyPath: "name") as? String
         
         return cell
     }
