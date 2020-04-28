@@ -131,7 +131,6 @@ extension DetailMachineDataViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = detailTableView.dequeueReusableCell(withIdentifier: "detailMachineCell", for: indexPath) as! DetailMachineDataTableViewCell
-//        cell.detailLabel.font = UIFont.init(name: cell.detailLabel.font.fontName, size: 15)
         
         cell.titleLabel.text = content[indexPath.row]
         cell.detailLabel.text = detailMachine[indexPath.row]

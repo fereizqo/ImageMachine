@@ -22,7 +22,8 @@ class coreDataRequest {
         let machine = NSManagedObject(entity: entity, insertInto: managedContext)
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy"
+        formatter.dateStyle = DateFormatter.Style.medium
+        formatter.timeStyle = DateFormatter.Style.none
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         let date = formatter.date(from: content[4])
         
@@ -34,6 +35,7 @@ class coreDataRequest {
         
         do {
             try managedContext.save()
+            print("save succes: \(machine)")
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -120,6 +122,7 @@ class coreDataRequest {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateStyle = DateFormatter.Style.medium
                 dateFormatter.timeStyle = DateFormatter.Style.none
+                dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
                 let date = dateFormatter.string(from: maintenanceDate)
                 
                 certainMachinesArray.append(contentsOf: [id,name,type,String(qrCode),date] )
@@ -146,7 +149,8 @@ class coreDataRequest {
                  let dataToUpdate = fetch[0] as! NSManagedObject
 
                  let formatter = DateFormatter()
-                 formatter.dateFormat = "MMMM dd, yyyy"
+                 formatter.dateStyle = DateFormatter.Style.medium
+                 formatter.timeStyle = DateFormatter.Style.none
                  formatter.timeZone = TimeZone(secondsFromGMT: 0)
                  let date = formatter.date(from: content[4])
 
