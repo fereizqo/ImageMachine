@@ -72,6 +72,25 @@ class CodeReaderViewController: UIViewController {
             view.bringSubviewToFront(qrCodeFrameView)
         }
     }
+    
+    func qrCodeMatch(machine: Machines) {
+        
+        let alertPrompt = UIAlertController(title: "Detail Machine Data", message: "You're going to see \(machine.name) detail machine data ", preferredStyle: .actionSheet)
+        let confirmAction = UIAlertAction(title: "Confirm", style: UIAlertAction.Style.default, handler: { (action) -> Void in
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailMachineData") as! DetailMachineDataViewController
+            vc.modalPresentationStyle = .popover
+            vc.modalTransitionStyle = .crossDissolve
+            vc.machine = machine
+            self.present(vc, animated: true, completion: nil)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+        
+        alertPrompt.addAction(confirmAction)
+        alertPrompt.addAction(cancelAction)
+        
+        present(alertPrompt, animated: true, completion: nil)
+    }
 
 }
 
@@ -101,7 +120,7 @@ extension CodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
                 
                 for i in machinesArray {
                     if i.qrCode == intMetadata {
-                        print("boom")
+                        qrCodeMatch(machine: i)
                     }
                 }
                 
