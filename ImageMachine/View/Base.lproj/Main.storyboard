@@ -79,7 +79,6 @@
                                 <connections>
                                     <outlet property="subtitleLabel" destination="Tq9-Jf-uXQ" id="vff-Oa-1Pz"/>
                                     <outlet property="titleLabel" destination="tC5-Po-lkp" id="HD5-cs-onq"/>
-                                    <segue destination="qcc-0S-vKE" kind="show" id="QAj-GA-58b"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -95,6 +94,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="qcc-0S-vKE" kind="show" identifier="goToDetail" id="1BH-SJ-M0P"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LeI-U8-oj3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -286,7 +288,7 @@
         <!--Machine Data-->
         <scene sceneID="ekh-GR-sfT">
             <objects>
-                <navigationController id="wc7-Ue-KNn" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavController" id="wc7-Ue-KNn" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Machine Data" id="8Ba-1i-2bg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JRs-j8-GvN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

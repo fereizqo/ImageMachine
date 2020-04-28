@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+protocol detailMachineDelegate {
+    func updateData(content: [String])
+}
+
 class EditViewController: UIViewController {
 
     @IBOutlet weak var editTableView: UITableView!
@@ -16,9 +20,14 @@ class EditViewController: UIViewController {
     
     let header = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
     var content = ["","","","",""]
+    var machine: Machines?
+    var detailMachineDelegate: detailMachineDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Check edit or not
+        editContact()
         
         // Appearance
         doneBarButton.isEnabled = false
@@ -30,12 +39,17 @@ class EditViewController: UIViewController {
         
         // Dismiss keyboard
         self.hideKeyboardWhenTappedAround()
-        
     }
     
     
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
-        coreDataRequest.shared.create(content: content)
+        if let detailMachine = machine {
+//            coreDataRequest.shared.update(id: detailMachine.id, content: content)
+            
+            detailMachineDelegate?.updateData(content: content)
+        } else {
+            coreDataRequest.shared.create(content: content)
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
@@ -51,6 +65,22 @@ class EditViewController: UIViewController {
             alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func editContact() {
+        guard let detailMachine = machine else { return }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        let date = dateFormatter.string(from: detailMachine.maintenanceDate)
+        
+        content.removeAll()
+        content.append(contentsOf: [detailMachine.id,
+                       detailMachine.name,
+                       detailMachine.type,
+                       String(detailMachine.qrCode),
+                       date])
     }
     
 }
@@ -80,10 +110,13 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         if textField.tag == 0 {
             let uuid = UUID().uuidString
             textField.text = uuid
+            if let detailMachine = machine {
+                textField.text = detailMachine.id
+            }
             textField.isEnabled = false
             content[0] = uuid
         }
-        
+
         return cell
     }
     

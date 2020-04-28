@@ -185,8 +185,8 @@
 				49D9349A2454746800414614 /* CodeReaderViewController.swift */,
 				49F8FA892452A6A10034D717 /* MachineDataTableViewController.swift */,
 				49F8FA8D2452CD2D0034D717 /* DetailMachineDataViewController.swift */,
-				49D934A02455847400414614 /* ImageViewController.swift */,
 				49F8FA912452D3040034D717 /* EditViewController.swift */,
+				49D934A02455847400414614 /* ImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

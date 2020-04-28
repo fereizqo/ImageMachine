@@ -47,7 +47,6 @@ class coreDataRequest {
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Machine")
         
-        //3
         do {
           let machines = try managedContext.fetch(fetchRequest)
             
@@ -67,43 +66,82 @@ class coreDataRequest {
         
         return machinesArray
     }
+    
+    func retrieveCertainMachine(id: String) -> [String] {
+        
+        var certainMachinesArray: [String] = []
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Machine")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id)
+        
+        managedContext.performAndWait {
+            do {
+                let fetch = try managedContext.fetch(fetchRequest)
+                
+                let dataToRead = fetch[0] as! NSManagedObject
+                
+                let id = dataToRead.value(forKey: "id") as! String
+                let name = dataToRead.value(forKey: "name") as! String
+                let type = dataToRead.value(forKey: "type") as! String
+                let qrCode = dataToRead.value(forKey: "qrCode") as! Int
+                let maintenanceDate = dataToRead.value(forKey: "dateMaintenance") as! Date
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = DateFormatter.Style.medium
+                dateFormatter.timeStyle = DateFormatter.Style.none
+                let date = dateFormatter.string(from: maintenanceDate)
+                
+                certainMachinesArray.append(contentsOf: [id,name,type,String(qrCode),date] )
+                
+            } catch let error as NSError {
+              print("Could not fetch. \(error), \(error.userInfo)")
+            }
+        }
+        
+        return certainMachinesArray
+    }
 
-    func update(content: [String]){
+    func update(id: String, content: [String]){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Machine")
-//        fetchRequest.predicate = NSPredicate(format: "email = %@", email)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id)
         
-        do{
-            let fetch = try managedContext.fetch(fetchRequest)
-            let dataToUpdate = fetch[0] as! NSManagedObject
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MMMM dd, yyyy"
-            formatter.timeZone = TimeZone(secondsFromGMT: 0)
-            let date = formatter.date(from: content[4])
-            
-            dataToUpdate.setValue(content[0], forKeyPath: "id")
-            dataToUpdate.setValue(content[1], forKeyPath: "name")
-            dataToUpdate.setValue(content[2], forKeyPath: "type")
-            dataToUpdate.setValue(Int(content[3]), forKeyPath: "qrCode")
-            dataToUpdate.setValue(date, forKeyPath: "dateMaintenance")
-            
-            try managedContext.save()
-        }catch let err{
-            print(err)
-        }
+        managedContext.performAndWait {
+             do{
+                 let fetch = try managedContext.fetch(fetchRequest)
+                 let dataToUpdate = fetch[0] as! NSManagedObject
+
+                 let formatter = DateFormatter()
+                 formatter.dateFormat = "MMMM dd, yyyy"
+                 formatter.timeZone = TimeZone(secondsFromGMT: 0)
+                 let date = formatter.date(from: content[4])
+
+                 dataToUpdate.setValue(content[0], forKeyPath: "id")
+                 dataToUpdate.setValue(content[1], forKeyPath: "name")
+                 dataToUpdate.setValue(content[2], forKeyPath: "type")
+                 dataToUpdate.setValue(Int(content[3]), forKeyPath: "qrCode")
+                 dataToUpdate.setValue(date, forKeyPath: "dateMaintenance")
+                 
+                 try managedContext.save()
+             }catch let err{
+                 print(err)
+             }
+         }
+
     }
     
-    func delete(){
+    func delete(id: String){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Machine")
-//        fetchRequest.predicate = NSPredicate(format: "email = %@", email)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id)
         
         do{
             let dataToDelete = try managedContext.fetch(fetchRequest)[0] as! NSManagedObject

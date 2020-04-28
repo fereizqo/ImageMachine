@@ -13,7 +13,8 @@ class MachineDataTableViewController: UITableViewController {
     
     var machines: [NSManagedObject] = []
     var machinesArray: [Machines] = []
-
+    
+    // Setup after load view
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,10 +25,10 @@ class MachineDataTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         machinesArray = coreDataRequest.shared.retrieve()
+        tableView.reloadData()
     }
 
     // Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -46,9 +47,17 @@ class MachineDataTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailMachineData") as! DetailMachineDataViewController
-        nc.machine = machinesArray[indexPath.row]
-        print("machine: \(machinesArray[indexPath.row])")
+        var detailMachines: Machines
+        detailMachines = machinesArray[indexPath.row]
+        
+        performSegue(withIdentifier: "goToDetail", sender: detailMachines)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? DetailMachineDataViewController, let detailMachines = sender as? Machines {
+            vc.machine = detailMachines
+        }
     }
     
     @IBAction func addBarButtonTapped(_ sender: UIBarButtonItem) {

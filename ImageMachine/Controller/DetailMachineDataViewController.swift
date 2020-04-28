@@ -12,34 +12,55 @@ import Photos
 import CoreData
 
 class DetailMachineDataViewController: UIViewController {
-
+    
     @IBOutlet weak var detailTableView: UITableView!
     @IBOutlet weak var detailCollectionView: UICollectionView!
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var machineImageButton: UIButton!
     @IBOutlet weak var machineImageView: UIImageView!
     
-    let content = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
-    let dummy = [ "123", "Test", "Type A", "4123","22/12/2020" ]
     var machine: Machines?
     var imagePHAsset = [PHAsset]()
     var photoArray = [UIImage]()
+    var detailMachine = [ "123", "Test", "Type A", "4123","22/12/2020" ]
+    let content = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
+    var editVc: EditViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        editVc = EditViewController()
+        editVc.detailMachineDelegate = self
         detailCollectionView.delegate = self
         detailCollectionView.dataSource = self
         detailTableView.delegate = self
         detailTableView.dataSource = self
         self.detailTableView.tableFooterView = UIView()
+        
+        guard let selectedMachine = machine else { return }
+        detailMachine.removeAll()
+        detailMachine = coreDataRequest.shared.retrieveCertainMachine(id:selectedMachine.id)
+        detailTableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    func sendMachineData(content: [String]) {
+        detailMachine.removeAll()
+        detailMachine = content
+        print("sss")
     }
     
     @IBAction func editBarButtonTapped(_ sender: UIBarButtonItem) {
         let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "editNavViewController") as! UINavigationController
         nc.modalPresentationStyle = .fullScreen
         nc.modalTransitionStyle = .crossDissolve
+        let vc = nc.viewControllers.first as! EditViewController
+        vc.machine = machine
         self.present(nc, animated: true, completion: nil)
     }
     
@@ -74,6 +95,7 @@ class DetailMachineDataViewController: UIViewController {
         })
     }
     
+    
     func convertAssetToImages() -> Void {
         if imagePHAsset.count != 0 {
             for i in 0 ..< imagePHAsset.count {
@@ -91,9 +113,7 @@ class DetailMachineDataViewController: UIViewController {
                 let newImageData = UIImage(data: imageData!)
                 
                 self.photoArray.append(newImageData! as UIImage)
-                
             }
-            
             detailCollectionView.reloadData()
         }
         
@@ -106,11 +126,10 @@ extension DetailMachineDataViewController: UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = detailTableView.dequeueReusableCell(withIdentifier: "detailMachineCell", for: indexPath) as! DetailMachineDataTableViewCell
         
+        let cell = detailTableView.dequeueReusableCell(withIdentifier: "detailMachineCell", for: indexPath) as! DetailMachineDataTableViewCell
         cell.titleLabel.text = content[indexPath.row]
-        cell.detailLabel.text = dummy[indexPath.row]        
-//        cell.textLabel?.text = person.value(forKeyPath: "name") as? String
+        cell.detailLabel.text = detailMachine[indexPath.row]
         
         return cell
     }
@@ -142,6 +161,14 @@ extension DetailMachineDataViewController: UICollectionViewDelegate, UICollectio
         vc.image = photoArray[indexPath.row]
         self.present(nc, animated: true, completion: nil)
     }
-    
+}
+
+extension DetailMachineDataViewController: detailMachineDelegate {
+    func updateData(content: [String]) {
+        detailMachine.removeAll()
+        detailMachine.append(contentsOf: content)
+        detailTableView.reloadData()
+        print("protocol")
+    }
     
 }
