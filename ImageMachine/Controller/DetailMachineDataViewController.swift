@@ -11,6 +11,10 @@ import BSImagePicker
 import Photos
 import CoreData
 
+protocol detailMachineDelegate {
+    func updateData(content: [String])
+}
+
 class DetailMachineDataViewController: UIViewController {
     
     @IBOutlet weak var detailTableView: UITableView!
@@ -30,8 +34,6 @@ class DetailMachineDataViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        editVc = EditViewController()
-        editVc.detailMachineDelegate = self
         detailCollectionView.delegate = self
         detailCollectionView.dataSource = self
         detailTableView.delegate = self
@@ -61,6 +63,7 @@ class DetailMachineDataViewController: UIViewController {
         nc.modalTransitionStyle = .crossDissolve
         let vc = nc.viewControllers.first as! EditViewController
         vc.machine = machine
+        vc.detailMachineDelegates = self
         self.present(nc, animated: true, completion: nil)
     }
     
@@ -168,7 +171,5 @@ extension DetailMachineDataViewController: detailMachineDelegate {
         detailMachine.removeAll()
         detailMachine.append(contentsOf: content)
         detailTableView.reloadData()
-        print("protocol")
     }
-    
 }

@@ -9,10 +9,6 @@
 import UIKit
 import CoreData
 
-protocol detailMachineDelegate {
-    func updateData(content: [String])
-}
-
 class EditViewController: UIViewController {
 
     @IBOutlet weak var editTableView: UITableView!
@@ -21,7 +17,7 @@ class EditViewController: UIViewController {
     let header = [ "ID", "Name", "Type", "QR Code","Last maintenance date" ]
     var content = ["","","","",""]
     var machine: Machines?
-    var detailMachineDelegate: detailMachineDelegate!
+    var detailMachineDelegates: detailMachineDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +40,8 @@ class EditViewController: UIViewController {
     
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
         if let detailMachine = machine {
-//            coreDataRequest.shared.update(id: detailMachine.id, content: content)
-            
-            detailMachineDelegate?.updateData(content: content)
+            coreDataRequest.shared.update(id: detailMachine.id, content: content)
+            detailMachineDelegates.updateData(content: content)
         } else {
             coreDataRequest.shared.create(content: content)
         }
