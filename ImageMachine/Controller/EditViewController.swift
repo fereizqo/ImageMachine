@@ -103,6 +103,8 @@ extension EditViewController: UITableViewDelegate, UITableViewDataSource, UIText
         
         // Insert unique ID
         if textField.tag == 0 {
+            textField.minimumFontSize = 5
+            textField.adjustsFontSizeToFitWidth = true
             let uuid = UUID().uuidString
             textField.text = uuid
             if let detailMachine = machine {

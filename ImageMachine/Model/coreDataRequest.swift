@@ -67,6 +67,35 @@ class coreDataRequest {
         return machinesArray
     }
     
+    func retrieveSort(SortBy: String) -> [Machines] {
+        var machinesArray: [Machines] = []
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Machine")
+        let sort = NSSortDescriptor(key: SortBy, ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
+        do {
+          let machines = try managedContext.fetch(fetchRequest)
+            
+            machines.forEach { machine in
+                machinesArray.append(
+                    Machines(id: machine.value(forKey: "id") as! String,
+                             name: machine.value(forKey: "name") as! String,
+                             type: machine.value(forKey: "type") as! String,
+                             qrCode: machine.value(forKey: "qrCode") as! Int,
+                             maintenanceDate: machine.value(forKey: "dateMaintenance") as! Date)
+                )
+                
+            }
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        return machinesArray
+    }
+    
     func retrieveCertainMachine(id: String) -> [String] {
         
         var certainMachinesArray: [String] = []

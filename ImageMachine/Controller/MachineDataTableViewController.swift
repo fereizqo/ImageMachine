@@ -66,4 +66,20 @@ class MachineDataTableViewController: UITableViewController {
         nc.modalTransitionStyle = .crossDissolve
         self.present(nc, animated: true, completion: nil)
     }
+    
+    @IBAction func sortBarButtonTapped(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Sort Data", message: "Let's sort data by:", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "ID", style: .default, handler: { action in
+            self.machinesArray = coreDataRequest.shared.retrieveSort(SortBy: "id")
+            self.tableView.reloadData()
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Name", style: .default, handler: { action in
+            self.machinesArray = coreDataRequest.shared.retrieveSort(SortBy: "name")
+            self.tableView.reloadData()
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

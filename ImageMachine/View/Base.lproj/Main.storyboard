@@ -88,6 +88,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Machine Data" id="FyH-6G-xOT">
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="Onw-yp-3at">
+                            <connections>
+                                <action selector="sortBarButtonTapped:" destination="zHi-yt-Wb5" id="Z6Y-jm-QSC"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="Yde-yJ-e8w">
                             <connections>
                                 <action selector="addBarButtonTapped:" destination="zHi-yt-Wb5" id="cfd-HT-TK4"/>
@@ -129,9 +134,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qer-Mn-Uks">
-                                                    <rect key="frame" x="350" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="354.5" y="14" width="39.5" height="18"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -218,7 +223,7 @@
             </objects>
             <point key="canvasLocation" x="3279.7101449275365" y="-708.48214285714278"/>
         </scene>
-        <!--Edit View Controller-->
+        <!--Edit Machine Data-->
         <scene sceneID="bB5-3J-XDg">
             <objects>
                 <viewController storyboardIdentifier="editViewController" id="Dt0-Qu-RtP" customClass="EditViewController" customModule="ImageMachine" customModuleProvider="target" sceneMemberID="viewController">
@@ -264,7 +269,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="4xj-xi-GOZ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="g1T-Se-hck">
+                    <navigationItem key="navigationItem" title="Edit Machine Data" id="g1T-Se-hck">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="ofO-Rv-APC">
                             <connections>
                                 <action selector="cancelBarButtonTapped:" destination="Dt0-Qu-RtP" id="gKa-2a-Htk"/>
