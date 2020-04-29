@@ -11,7 +11,6 @@ import UIKit
 class ImageViewController: UIViewController {
 
     @IBOutlet weak var machineImage: UIImageView!
-    @IBOutlet weak var backBarButton: UIBarButtonItem!
     var image: UIImage?
     
     override func viewDidLoad() {

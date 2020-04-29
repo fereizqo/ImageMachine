@@ -12,6 +12,7 @@ import Photos
 import CoreData
 
 protocol detailMachineDelegate {
+    // Protocol for update data
     func updateData(content: [String])
 }
 
@@ -21,7 +22,7 @@ class DetailMachineDataViewController: UIViewController {
     @IBOutlet weak var detailCollectionView: UICollectionView!
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var machineImageButton: UIButton!
-    @IBOutlet weak var machineImageView: UIImageView!
+    @IBOutlet weak var deleteImageButton: UIButton!
     
     var machine: Machines?
     var imagePHAsset = [PHAsset]()
@@ -40,96 +41,104 @@ class DetailMachineDataViewController: UIViewController {
         detailTableView.dataSource = self
         self.detailTableView.tableFooterView = UIView()
         
+        // Retrieve certain machine data details
         guard let selectedMachine = machine else { return }
         detailMachine.removeAll()
         detailMachine = coreDataRequest.shared.retrieveCertainMachine(id:selectedMachine.id)
         detailTableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    func sendMachineData(content: [String]) {
-        detailMachine.removeAll()
-        detailMachine = content
-        print("sss")
-    }
-    
     @IBAction func editBarButtonTapped(_ sender: UIBarButtonItem) {
+        // Edit bar action
+        
+        // Initiate go to edit navigation controller
         let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "editNavViewController") as! UINavigationController
         nc.modalPresentationStyle = .fullScreen
         nc.modalTransitionStyle = .crossDissolve
+        // Passing data
         let vc = nc.viewControllers.first as! EditViewController
         vc.machine = machine
         vc.detailMachineDelegates = self
+        
         self.present(nc, animated: true, completion: nil)
     }
     
     @IBAction func machineImageButtonTapped(_ sender: UIButton) {
-        let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+        // Add machine image button action
         
-
-        allAssets.enumerateObjects({ (asset, idx, stop) -> Void in
-//            self.imagePHAsset.append(asset)
-        })
-        
-        print("even assets: \(imagePHAsset.count)")
-        
+        // Initiate image picker
         let imagePicker = ImagePickerController(selectedAssets: imagePHAsset)
+        
+        // Image picker config
         imagePicker.settings.selection.max = 10
         imagePicker.settings.theme.selectionStyle = .numbered
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
         imagePicker.settings.selection.unselectOnReachingMax = true
 
         self.presentImagePicker(imagePicker,select: { (asset) in
-        }, deselect: { (asset) in
-            
-        }, cancel: { (assets) in
-            
-        }, finish: { (assets) in
-            for i in 0 ..< assets.count {
-                self.imagePHAsset.append(assets[i])
+            // Select asset action
+            if self.imagePHAsset.count < 10 {
+                self.imagePHAsset.append(asset)
             }
+        }, deselect: { (asset) in
+            // Deselect asset action
+            self.imagePHAsset = self.imagePHAsset.filter { $0 != asset }
+        }, cancel: { (assets) in
+            // Cancel action
+            for asset in assets {
+                self.imagePHAsset = self.imagePHAsset.filter { $0 != asset }
+            }
+        }, finish: { (assets) in
+            // Done action
             self.convertAssetToImages()
-        }, completion: {
-            print("photos selected")
         })
     }
     
+    @IBAction func deleteImageButtonTapped(_ sender: UIButton) {
+        // Delete image button action
+        
+        // Remove all photo data and reload collection view
+        photoArray.removeAll()
+        imagePHAsset.removeAll()
+        detailCollectionView.reloadData()
+    }
     
     func convertAssetToImages() -> Void {
+        // Make sure the photo array is'nt ovewrite
+        self.photoArray.removeAll()
         if imagePHAsset.count != 0 {
             for i in 0 ..< imagePHAsset.count {
-                let size = view.frame.size.width/6
                 let manager = PHImageManager.default()
                 let option = PHImageRequestOptions()
                 var thumbnail = UIImage()
                 
+                // PHImage config
                 option.isSynchronous = true
-                manager.requestImage(for: imagePHAsset[i], targetSize: CGSize(width: size, height: size), contentMode: .aspectFill, options: option, resultHandler: {(result, info) -> Void in
+                option.deliveryMode = .highQualityFormat
+                option.resizeMode = .exact
+                
+                // Convert PHAsset into UIImage
+                manager.requestImage(for: imagePHAsset[i], targetSize: CGSize(width: 1000, height: 1000), contentMode: .aspectFit, options: option, resultHandler: {(result, info) -> Void in
                     thumbnail = result!
                 })
-                
-                let imageData = thumbnail.jpegData(compressionQuality: 0.7)
-                let newImageData = UIImage(data: imageData!)
-                
-                self.photoArray.append(newImageData! as UIImage)
+                self.photoArray.append(thumbnail)
             }
+            // Reload collection view
             detailCollectionView.reloadData()
         }
         
     }
 }
 
+// MARK: - TableView data source
 extension DetailMachineDataViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Return number of row
         return content.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        // Configure the cell
         let cell = detailTableView.dequeueReusableCell(withIdentifier: "detailMachineCell", for: indexPath) as! DetailMachineDataTableViewCell
         
         cell.titleLabel.text = content[indexPath.row]
@@ -141,14 +150,16 @@ extension DetailMachineDataViewController: UITableViewDataSource, UITableViewDel
     }
 }
 
-// CollectionView
+// MARK: - CollectionView data source
 
 extension DetailMachineDataViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // Return the number of items
         return photoArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Configure the cell
         let cell = detailCollectionView.dequeueReusableCell(withReuseIdentifier: "detailCollectionCell", for: indexPath) as! DetailMachineDataCollectionViewCell
         cell.machineImage.image = photoArray[indexPath.row]
         
@@ -156,21 +167,30 @@ extension DetailMachineDataViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // Configure the layout
+        
+        // 5 items per section
         let size = view.frame.size.width/6
         return CGSize(width: size, height: size)
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Do action when selecting item
+        
+        // Initiate go to image navigation controller
         let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageNavViewController") as! UINavigationController
         nc.modalPresentationStyle = .overCurrentContext
         nc.modalTransitionStyle = .crossDissolve
+        // Pass image data
         let vc = nc.viewControllers.first as! ImageViewController
         vc.image = photoArray[indexPath.row]
+        
         self.present(nc, animated: true, completion: nil)
     }
 }
 
+// MARK: - Protocol delegate
 extension DetailMachineDataViewController: detailMachineDelegate {
     func updateData(content: [String]) {
         detailMachine.removeAll()

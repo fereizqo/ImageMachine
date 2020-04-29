@@ -74,8 +74,10 @@ class CodeReaderViewController: UIViewController {
     }
     
     func qrCodeMatch(machine: Machines) {
-        
+        // Make alert promp
         let alertPrompt = UIAlertController(title: "Detail Machine Data", message: "You're going to see \(machine.name) detail machine data ", preferredStyle: .actionSheet)
+        
+        // Confirm action
         let confirmAction = UIAlertAction(title: "Confirm", style: UIAlertAction.Style.default, handler: { (action) -> Void in
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailMachineData") as! DetailMachineDataViewController
             vc.modalPresentationStyle = .popover
@@ -83,12 +85,13 @@ class CodeReaderViewController: UIViewController {
             vc.machine = machine
             self.present(vc, animated: true, completion: nil)
         })
-        
+        // Cancel action
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         
         alertPrompt.addAction(confirmAction)
         alertPrompt.addAction(cancelAction)
         
+        // Present alert
         present(alertPrompt, animated: true, completion: nil)
     }
 

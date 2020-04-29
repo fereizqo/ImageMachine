@@ -35,7 +35,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iKn-Da-K28"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Code Reader" id="bMD-eV-4iS"/>
+                    <tabBarItem key="tabBarItem" title="Code Reader" image="qrcode.viewfinder" catalog="system" id="bMD-eV-4iS"/>
                     <connections>
                         <outlet property="messageLabel" destination="wz8-jB-AY0" id="hmO-io-1qf"/>
                     </connections>
@@ -116,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tfI-24-TTM">
-                                <rect key="frame" x="0.0" y="88" width="414" height="373"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="256"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailMachineCell" textLabel="f9U-bs-Bsz" detailTextLabel="Qer-Mn-Uks" style="IBUITableViewCellStyleValue1" id="y6w-hD-KAz" customClass="DetailMachineDataTableViewCell" customModule="ImageMachine" customModuleProvider="target">
@@ -149,13 +149,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZz-Ap-Cfb">
-                                <rect key="frame" x="155" y="477" width="104" height="30"/>
-                                <state key="normal" title="Machine Image"/>
-                                <connections>
-                                    <action selector="machineImageButtonTapped:" destination="qcc-0S-vKE" eventType="touchUpInside" id="IdX-jP-wO0"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iBN-d4-H0t">
                                 <rect key="frame" x="0.0" y="593" width="414" height="220"/>
                                 <color key="backgroundColor" white="0.96330087043378987" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -189,19 +182,38 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTs-id-SA3">
+                                <rect key="frame" x="162" y="487" width="91" height="30"/>
+                                <state key="normal" title="Delete Image">
+                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteImageButtonTapped:" destination="qcc-0S-vKE" eventType="touchUpInside" id="Xkl-Q5-u3f"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZz-Ap-Cfb">
+                                <rect key="frame" x="139" y="449" width="136" height="30"/>
+                                <state key="normal" title="Add Machine Image"/>
+                                <connections>
+                                    <action selector="machineImageButtonTapped:" destination="qcc-0S-vKE" eventType="touchUpInside" id="IdX-jP-wO0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="RZz-Ap-Cfb" firstAttribute="top" secondItem="tfI-24-TTM" secondAttribute="bottom" constant="16" id="2JS-G6-ccf"/>
+                            <constraint firstItem="RZz-Ap-Cfb" firstAttribute="top" secondItem="tfI-24-TTM" secondAttribute="bottom" constant="105" id="2JS-G6-ccf"/>
                             <constraint firstItem="iBN-d4-H0t" firstAttribute="leading" secondItem="j20-bo-b0q" secondAttribute="leading" id="8fE-ql-o9n"/>
                             <constraint firstItem="tfI-24-TTM" firstAttribute="top" secondItem="j20-bo-b0q" secondAttribute="top" id="90L-AX-y0i"/>
                             <constraint firstItem="iBN-d4-H0t" firstAttribute="trailing" secondItem="j20-bo-b0q" secondAttribute="trailing" id="FuB-AA-XeL"/>
+                            <constraint firstItem="zTs-id-SA3" firstAttribute="leading" secondItem="j20-bo-b0q" secondAttribute="leading" constant="162" id="HwA-qy-V0s"/>
+                            <constraint firstItem="j20-bo-b0q" firstAttribute="trailing" secondItem="RZz-Ap-Cfb" secondAttribute="trailing" constant="139" id="J0w-53-Seo"/>
                             <constraint firstItem="tfI-24-TTM" firstAttribute="leading" secondItem="j20-bo-b0q" secondAttribute="leading" id="LmM-uZ-wFt"/>
                             <constraint firstItem="tfI-24-TTM" firstAttribute="trailing" secondItem="j20-bo-b0q" secondAttribute="trailing" id="MNO-LL-6T3"/>
-                            <constraint firstItem="j20-bo-b0q" firstAttribute="trailing" secondItem="RZz-Ap-Cfb" secondAttribute="trailing" constant="155" id="TNY-0B-5Ry"/>
-                            <constraint firstItem="RZz-Ap-Cfb" firstAttribute="leading" secondItem="j20-bo-b0q" secondAttribute="leading" constant="155" id="n7w-tD-Rna"/>
+                            <constraint firstItem="iBN-d4-H0t" firstAttribute="top" secondItem="zTs-id-SA3" secondAttribute="bottom" constant="76" id="YaA-sV-8EV"/>
+                            <constraint firstItem="j20-bo-b0q" firstAttribute="trailing" secondItem="zTs-id-SA3" secondAttribute="trailing" constant="161" id="Yv6-nn-FtA"/>
+                            <constraint firstItem="zTs-id-SA3" firstAttribute="top" secondItem="RZz-Ap-Cfb" secondAttribute="bottom" constant="8" id="ZZj-0c-WrS"/>
+                            <constraint firstItem="RZz-Ap-Cfb" firstAttribute="leading" secondItem="j20-bo-b0q" secondAttribute="leading" constant="139" id="o42-H9-1og"/>
                             <constraint firstItem="iBN-d4-H0t" firstAttribute="bottom" secondItem="j20-bo-b0q" secondAttribute="bottom" id="rDJ-0a-EJe"/>
-                            <constraint firstItem="iBN-d4-H0t" firstAttribute="top" secondItem="RZz-Ap-Cfb" secondAttribute="bottom" constant="86" id="t6j-xu-3rJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j20-bo-b0q"/>
                     </view>
@@ -213,6 +225,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteImageButton" destination="zTs-id-SA3" id="e5R-kK-3Mn"/>
                         <outlet property="detailCollectionView" destination="iBN-d4-H0t" id="ChP-qZ-NVb"/>
                         <outlet property="detailTableView" destination="tfI-24-TTM" id="eZP-aF-E7q"/>
                         <outlet property="editBarButton" destination="nXU-nv-SeS" id="dcg-2f-2p5"/>
@@ -294,7 +307,7 @@
         <scene sceneID="ekh-GR-sfT">
             <objects>
                 <navigationController storyboardIdentifier="mainNavController" id="wc7-Ue-KNn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Machine Data" id="8Ba-1i-2bg"/>
+                    <tabBarItem key="tabBarItem" title="Machine Data" image="list.dash" catalog="system" id="8Ba-1i-2bg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JRs-j8-GvN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -399,6 +412,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="qrcode.viewfinder" catalog="system" width="128" height="114"/>
     </resources>
 </document>

@@ -14,6 +14,7 @@ class coreDataRequest {
     static let shared = coreDataRequest()
     private init() {}
     
+    // MARK: - Create new machine object data
     func create(content: [String]) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -40,8 +41,10 @@ class coreDataRequest {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-
-
+    
+    // MARK: - Retrieve machine data
+    
+    // Retrieve all saved machine data
     func retrieve() -> [Machines] {
         var machinesArray: [Machines] = []
         
@@ -69,6 +72,7 @@ class coreDataRequest {
         return machinesArray
     }
     
+    // Retrieve all saved machine data in sorted
     func retrieveSort(SortBy: String) -> [Machines] {
         var machinesArray: [Machines] = []
         
@@ -98,6 +102,7 @@ class coreDataRequest {
         return machinesArray
     }
     
+    // Retrieve detail of certain machine data
     func retrieveCertainMachine(id: String) -> [String] {
         
         var certainMachinesArray: [String] = []
@@ -134,7 +139,8 @@ class coreDataRequest {
         
         return certainMachinesArray
     }
-
+    
+    // MARK: - Update certain machine data
     func update(id: String, content: [String]){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -168,6 +174,7 @@ class coreDataRequest {
 
     }
     
+    // MARK: - Delete certain machine data
     func delete(id: String){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
