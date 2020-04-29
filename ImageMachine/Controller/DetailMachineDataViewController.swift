@@ -39,6 +39,8 @@ class DetailMachineDataViewController: UIViewController {
         detailCollectionView.dataSource = self
         detailTableView.delegate = self
         detailTableView.dataSource = self
+        detailTableView.allowsSelection = false
+        detailTableView.isScrollEnabled = false
         self.detailTableView.tableFooterView = UIView()
         
         // Retrieve certain machine data details
@@ -97,10 +99,22 @@ class DetailMachineDataViewController: UIViewController {
     @IBAction func deleteImageButtonTapped(_ sender: UIButton) {
         // Delete image button action
         
-        // Remove all photo data and reload collection view
-        photoArray.removeAll()
-        imagePHAsset.removeAll()
-        detailCollectionView.reloadData()
+        // Make alert promp
+        let alert = UIAlertController(title: "Delete Photo", message: "Are you sure want to delete the pho?", preferredStyle: .actionSheet)
+        // Delete action
+        alert.addAction(UIAlertAction(title: "Delete photo", style: .destructive, handler: { action in
+            // Remove all photo data and reload collection view
+            self.photoArray.removeAll()
+            self.imagePHAsset.removeAll()
+            self.detailCollectionView.reloadData()
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        // Cancel action
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        // Present alert
+        self.present(alert, animated: true, completion: nil)
     }
     
     func convertAssetToImages() -> Void {

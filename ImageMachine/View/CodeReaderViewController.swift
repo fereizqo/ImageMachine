@@ -13,7 +13,7 @@ class CodeReaderViewController: UIViewController {
     
     @IBOutlet weak var messageLabel: UILabel!
     
-    let machinesArray = coreDataRequest.shared.retrieve()
+    var machinesArray: [Machines] = []
     var captureSession = AVCaptureSession()
     
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -73,6 +73,14 @@ class CodeReaderViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Do any additional setup every loading the view.
+        
+        // Update machine array data
+        machinesArray = coreDataRequest.shared.retrieve()
+    }
+    
     func qrCodeMatch(machine: Machines) {
         // Make alert promp
         let alertPrompt = UIAlertController(title: "Detail Machine Data", message: "You're going to see \(machine.name) detail machine data ", preferredStyle: .actionSheet)
@@ -124,6 +132,7 @@ extension CodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
                 for i in machinesArray {
                     if i.qrCode == intMetadata {
                         qrCodeMatch(machine: i)
+                        print("boom")
                     }
                 }
                 

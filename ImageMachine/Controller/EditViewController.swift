@@ -31,6 +31,7 @@ class EditViewController: UIViewController {
         // Tableview delegate
         editTableView.delegate = self
         editTableView.dataSource = self
+        editTableView.isScrollEnabled = false
         editTableView.tableFooterView = UIView()
         
         // Dismiss keyboard

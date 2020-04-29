@@ -64,9 +64,22 @@ class MachineDataTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // Do delete action in selected row
         if editingStyle == .delete {
-            coreDataRequest.shared.delete(id: "\(machinesArray[indexPath.row].id)")
-            machinesArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            // Make alert promp
+            let alert = UIAlertController(title: "Alert", message: "Are you sure want to delete this data?", preferredStyle: .actionSheet)
+            // Delete action
+            alert.addAction(UIAlertAction(title: "Delete data", style: .destructive, handler: { action in
+                coreDataRequest.shared.delete(id: "\(self.machinesArray[indexPath.row].id)")
+                self.machinesArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            // Cancel action
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+                alert.dismiss(animated: true, completion: nil)
+            }))
+            // Present alert
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
